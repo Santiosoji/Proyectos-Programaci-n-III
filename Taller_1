@@ -1,0 +1,32 @@
+% Primer ejercicio sobre el esquema de la familia Simpson.
+
+
+% Declaramos los primeros hechos de relaciones directas.
+
+padre_de(abraham, homero).
+padre_de(abraham, herbert).
+padre_de(clancy, marge).
+padre_de(clancy, patty).
+padre_de(clancy, selma).
+padre_de(homero, bart).
+padre_de(homero, lisa).
+padre_de(homero, maggie).
+
+madre_de(mona, homero).
+madre_de(mona, herbert).
+madre_de(jacqueline, marge).
+madre_de(jacqueline, patty).
+madre_de(jacqueline, selma).
+madre_de(marge, bart).
+madre_de(marge, lisa).
+madre_de(marge, maggie).
+madre_de(selma, ling).
+
+
+% Aqui van las reglas que me permiten crear relaciones indirectas como Abuel@, Herman@s entre otros.
+
+abuelo_de(Abuelo, Nieto) :- padre_de(Abuelo, Padre), (padre_de(Padre, Nieto); madre_de(Padre, Nieto)).
+
+abuela_de(Abuela, Nieto) :- madre_de(Abuela, Madre), (madre_de(Madre, Nieto); padre_de(Madre, Nieto)).
+
+hermano_o_hermana_de(Hermano_1, Hermano_2) :- padre_de(Padre, Hermano_1), padre_de(Padre, Hermano_2), madre_de(Madre, Hermano_1), madre_de(Madre, Hermano_2).
