@@ -29,4 +29,8 @@ abuelo_de(Abuelo, Nieto) :- padre_de(Abuelo, Padre), (padre_de(Padre, Nieto); ma
 
 abuela_de(Abuela, Nieto) :- madre_de(Abuela, Madre), (madre_de(Madre, Nieto); padre_de(Madre, Nieto)).
 
-hermano_o_hermana_de(Hermano_1, Hermano_2) :- padre_de(Padre, Hermano_1), padre_de(Padre, Hermano_2), madre_de(Madre, Hermano_1), madre_de(Madre, Hermano_2).
+hermano_de(Hermano_1, Hermano_2) :- padre_de(Padre, Hermano_1), padre_de(Padre, Hermano_2), madre_de(Madre, Hermano_1), madre_de(Madre, Hermano_2).
+
+tio_de(Tio, Sobrino) :- hermano_de(Tio, Padre), (padre_de(Padre, Sobrino); madre_de(Padre, Sobrino)).
+
+primo_de(Primo_1, Primo_2) :- (padre_de(Padre, Primo_1) \= padre_de(Padre, Primo_2)), (padre_de(Padre, Primo_1), tio_de(Padre, Primo_2)).
