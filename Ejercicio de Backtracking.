@@ -16,3 +16,13 @@ conexion_directa_con(Esta_cuidad_tiene, Esta_cuidad) :- conexion(Esta_cuidad_tie
 
 % Creamos otra regla que me permite de forma recursiva, imprimir mediante format las conexiones que tiene una ciudad con otras ciudades.
 conexion_con_costo(Ciudad) :- conexion(Ciudad, Destino, Costo), format('~w -> ~w (Costo: ~w)~n', [Ciudad, Destino, Costo]), fail.
+
+% Creamos una regla para determinar si un nodo tiene aristas.
+tiene_aristas(Nodo) :- conexion(Nodo, _, _).
+
+% Creamos una regla para calcular el costo de ir de X a Z pasando por Y.
+costo_ruta(X, Y, Z, CostoTotal) :- conexion(X, Y, Costo1), conexion(Y, Z, Costo2), CostoTotal is Costo1 + Costo2.
+
+% Por ultimo creamos una regla para verificar si es posible viajar desde Ddmonton a Calgary.
+es_posible_viajar(X, Y) :- conexion(X, Y, _).
+es_posible_viajar(A, B) :- conexion(A, C, _), es_posible_viajar(C, B).
