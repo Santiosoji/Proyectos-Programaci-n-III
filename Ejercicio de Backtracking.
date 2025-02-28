@@ -1,0 +1,18 @@
+% Ejercicio de verificar si es posible viajar de Vancouver a Winniepeg en un Grafo.
+
+% Creamos los hechos que nos permiten saber las conexiones directas entre nodos y el costo del viaje.
+conexion(vancouver, edmonton, 16).
+conexion(vancouver, calgary, 13).
+conexion(edmonton, saskatoon, 12).
+conexion(calgary, edmonton, 4).
+conexion(calgary, regina, 14).
+conexion(saskatoon, calgary, 9).
+conexion(saskatoon, winnipeg, 20).
+conexion(regina, saskatoon, 7).
+conexion(regina, winnipeg, 4).
+
+% Creamos una regla que me permite saber si hay una conexion directa entre nodos.
+conexion_directa_con(Esta_cuidad_tiene, Esta_cuidad) :- conexion(Esta_cuidad_tiene, Esta_cuidad, _).
+
+% Creamos otra regla que me permite de forma recursiva, imprimir mediante format las conexiones que tiene una ciudad con otras ciudades.
+conexion_con_costo(Ciudad) :- conexion(Ciudad, Destino, Costo), format('~w -> ~w (Costo: ~w)~n', [Ciudad, Destino, Costo]), fail.

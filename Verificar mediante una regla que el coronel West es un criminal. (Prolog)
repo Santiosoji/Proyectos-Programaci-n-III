@@ -1,0 +1,10 @@
+% Segundo Ejercicio, Verificar mediante una regla que el coronel West es un criminal.
+
+% Declaramos los Hechos.
+estadounidense(colonel_west).
+nacion_hostil(corea_del_sur).
+armas(misiles).
+vendio_a(colonel_west, misiles, corea_del_sur).
+
+% Declaramos una regla que nos permita determinar si es criminal o no.
+es_criminal(Persona) :-  estadounidense(Persona), vendio_a(Persona, Arma, Nacion), armas(Arma), nacion_hostil(Nacion).
