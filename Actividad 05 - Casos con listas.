@@ -1,0 +1,47 @@
+% Creamos los hechos padre_de y madre_de para determinar las relaciones directas
+% esta vez usamos una lista para guardar todos los hijos, en vez de usar un hecho 
+% por cada hijo.
+
+padre_de(abraham, [herbert, homero]).
+padre_de(clancy, [marge, patty, selma]).
+padre_de(homero, [bart, lisa, maggie]).
+
+madre_de(mona, [herbert, homero]).
+madre_de(jacqueline, [marge, patty, selma]).
+madre_de(marge, [bart, lisa, maggie]).
+madre_de(selma, [ling]).
+
+% Ahora creamos una regla que me permite determinar si alguien es hijo de un padre
+% usando member para verificar si el hijo esta dentro de la lista.
+
+padre(Pa, Hi):- padre_de(Pa, L1), member(Hi, L1).
+madre(Ma, Hi):- madre_de(Ma, L1), member(Hi, L1).
+
+% Creamos la segunda regla que me determina si son hermanos, comprobando si tienen
+% el mismo padre.
+
+hermanos(H1, H2):- padre(Pa, H1), padre(Pa, H2).
+
+% Cremos tambien la regla abuelo_de que me determina haciendo cuatro comprobaciones 
+% si el abuelo es padre del padre y el padre es padre del nieto.
+% si el abuelo es padre de la madre y la madre es madre del nieto.
+% si la abuela es madre del padre y el padre es padre del nieto.
+% si la abuela es madre de la madre y la madre es madre del nieto.
+
+abuelo_de(Ab, Ni):- 
+    padre(Ab, Pa), padre(Pa, Ni); 
+    padre(Ab, Pa), madre(Pa, Ni); 
+    madre(Ab, Pa), padre(Pa, Ni); 
+    madre(Ab, Pa), madre(Pa, Ni).
+
+% Otra regla tambien es tio_de y tia_de que determina si es tio del sobrino si se cumple que
+% el tio es hermano del padre y el padre es padre del sobrino.
+% la tia es hermano de la madre y la madre es madre del sobrino.
+
+tio_de(Ti, So):- hermanos(Ti, Pa), padre(Pa, So).
+tia_de(Ti, So):- hermanos(Ti, Ma), madre(Ma, So).
+
+% La ultima regla determina si son primos, verificando que ambos tengan los mismos abuelos
+% pero tambien verifica por ultimo que los primos no sean hermanos, con la condicion \+.
+
+primo_de(Pr1, Pr2):- abuelo_de(Ab, Pr1), abuelo_de(Ab, Pr2), \+ hermanos(Pr1, Pr2).
