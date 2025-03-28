@@ -1,3 +1,8 @@
+% Creamos un hecho por medio de una estructura que es, padre_y_madre_de(). donde el primer elemento sera el padre
+% el segumdo elemento sera la madre, y por ultimo una lista que guardara a los hijos en una lista. la estructura 
+% sera asi, (Padre, Madre, [Hijo1, Hijo2... Hijon]). En esta estructura estamos creando hechos de una sub familia 
+% que compone a toda la familia.
+
 padre_y_madre_de(abraham, mona, [herbert, homero]).
 padre_y_madre_de(clancy, jacqueline, [marge, patty, selma]).
 padre_y_madre_de(homero, marge, [bart, lisa, maggie]).
